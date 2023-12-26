@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactUser;
+use App\Models\ProjectUser;
 use Illuminate\Http\Request;
 
-class ContactUserController extends Controller
+class ProjectUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ContactUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ContactUser  $contactUser
+     * @param  \App\Models\ProjectUser  $projectUser
      * @return \Illuminate\Http\Response
      */
-    public function show(ContactUser $contactUser)
+    public function show(ProjectUser $projectUser)
     {
         //
     }
@@ -52,10 +52,10 @@ class ContactUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ContactUser  $contactUser
+     * @param  \App\Models\ProjectUser  $projectUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(ContactUser $contactUser)
+    public function edit(ProjectUser $projectUser)
     {
         //
     }
@@ -64,10 +64,10 @@ class ContactUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ContactUser  $contactUser
+     * @param  \App\Models\ProjectUser  $projectUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContactUser $contactUser)
+    public function update(Request $request, ProjectUser $projectUser)
     {
         //
     }
@@ -75,10 +75,10 @@ class ContactUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ContactUser  $contactUser
+     * @param  \App\Models\ProjectUser  $projectUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContactUser $contactUser)
+    public function destroy(ProjectUser $projectUser)
     {
         //
     }

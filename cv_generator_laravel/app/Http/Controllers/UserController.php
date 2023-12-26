@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactUser;
+use App\Models\DetailUser;
 use App\Models\PortfolioUser;
 use App\Models\ServiceUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+    private $active_page, $title_page;
+    public function __construct()
+    {
+        $active_page = 'user';
+        $title_page = 'User';
+    }
     /**
      * Display a listing of the resource.
      *
@@ -70,10 +77,36 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user, $category)
+    public function update(Request $request, User $user)
     {
         //
-        dd($category);
+        if ($request->name && $request->about_me) {
+            // jika sudah membuat halaman portofolio
+            echo "advance edit";
+        } else if ($request->name) {
+            try {
+                $validateData = $request->validate([
+                    'name' => 'string|required|max:255',
+                ]);
+
+                $user->update([
+                    'name' => $validateData['name'],
+                ]);
+
+                $request->session()->flash('pesan_success', 'Your data has been successfully changed');
+                return redirect()->back();
+            }
+            // Jika terjadi kesalahan validasi, tambahkan pesan error
+            catch (ValidationException $e) {
+                $request->session()->flash('pesan_error', 'Something is wrong, please try again');
+                return redirect()->back()->withErrors($e->validator->errors());
+            }
+        } else if ($request->password) {
+            echo "password_update";
+        } else {
+            $request->session()->flash('pesan_error', 'Something is wrong, please try again');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -90,14 +123,15 @@ class UserController extends Controller
     public function profile(User $user)
     {
         //
-        $portfolio = PortfolioUser::where('user_id', $user->id)->first();
-        $service = ServiceUser::where('user_id', $user->id)->first();
-        $contact = ContactUser::where('user_id', $user->id)->first();
+        $active_page = 'profile';
+        $title_page = 'Profile';
+
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
 
         return view("user.profile")
+            ->with('active_page', $active_page)
+            ->with('title_page', $title_page)
             ->with('user', $user)
-            ->with('portfolio', $portfolio)
-            ->with('service', $service)
-            ->with('contact', $contact);
+            ->with('detail_user', $detail_user);
     }
 }

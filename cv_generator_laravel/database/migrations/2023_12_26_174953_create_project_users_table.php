@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactUsersTable extends Migration
+class CreateProjectUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,14 @@ class CreateContactUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_users', function (Blueprint $table) {
+        Schema::create('project_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Kolom untuk relasi ke tabel users
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('phone', 20)->nullable();
-            $table->string('linked_in_url')->nullable();
-            $table->string('instagram_url')->nullable();
-            $table->string('facebook_url')->nullable();
-            $table->string('twitter_url')->nullable();
+            $table->string('image_path')->nullable();
+            $table->string('project_name', 100);
+            $table->string('project_category', 100);
+            $table->date('project_created_date')->nullable();
 
             // Tambahkan default dan onUpdate untuk timestamps
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -38,6 +37,6 @@ class CreateContactUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_users');
+        Schema::dropIfExists('project_users');
     }
 }

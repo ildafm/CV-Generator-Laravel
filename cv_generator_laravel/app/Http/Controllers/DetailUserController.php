@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PortfolioUser;
+use App\Models\DetailUser;
 use Illuminate\Http\Request;
 
-class PortfolioUserController extends Controller
+class DetailUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PortfolioUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PortfolioUser  $portfolioUser
+     * @param  \App\Models\DetailUser  $detailUser
      * @return \Illuminate\Http\Response
      */
-    public function show(PortfolioUser $portfolioUser)
+    public function show(DetailUser $detailUser)
     {
         //
     }
@@ -52,10 +52,10 @@ class PortfolioUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PortfolioUser  $portfolioUser
+     * @param  \App\Models\DetailUser  $detailUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(PortfolioUser $portfolioUser)
+    public function edit(DetailUser $detailUser)
     {
         //
     }
@@ -64,10 +64,10 @@ class PortfolioUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PortfolioUser  $portfolioUser
+     * @param  \App\Models\DetailUser  $detailUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PortfolioUser $portfolioUser)
+    public function update(Request $request, DetailUser $detailUser)
     {
         //
     }
@@ -75,10 +75,10 @@ class PortfolioUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PortfolioUser  $portfolioUser
+     * @param  \App\Models\DetailUser  $detailUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PortfolioUser $portfolioUser)
+    public function destroy(DetailUser $detailUser)
     {
         //
     }
