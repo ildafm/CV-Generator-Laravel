@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->char('level', 1)->default('U'); // Kolom level dengan panjang 1 karakter dan default 'U'
             $table->char('package', 1)->default('F'); // kolom paket dengan panjang 1 karakter dan default 'F'
+            $table->string('address', 700)->nullable();
+            $table->string('about_me', 1000)->nullable();
             $table->timestamp('package_active_at')->nullable();
 
             $table->timestamp('email_verified_at')->nullable();
