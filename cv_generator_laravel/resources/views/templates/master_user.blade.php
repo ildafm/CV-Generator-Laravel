@@ -57,6 +57,16 @@
                         <i class="bi bi-search"></i>
                     </a>
                 </li><!-- End Search Icon-->
+                {{-- @php
+                    use App\Http\Model\Project;
+                    use App\Http\Model\Service;
+                    use App\Http\Model\DetailUser;
+
+                    $detail_user = DetailUser::where('user_id', Auth::user()->id);
+                    $services = Service::where('detail_user_id', $detail_user->id);
+                    $projects = Project::where('detail_user_id', $detail_user->id);
+                    $num = 0;
+                @endphp --}}
 
                 {{-- Notification --}}
                 <li class="nav-item dropdown">
@@ -64,7 +74,8 @@
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
                         <span class="badge bg-primary badge-number">4</span>
-                    </a><!-- End Notification Icon -->
+                    </a>
+                    <!-- End Notification Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
@@ -213,13 +224,55 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-heading">My Portfolio Page</li>
-            <li class="nav-item">
-                <a class="nav-link {{ $active_page == 'create_portfolio' ? '' : 'collapsed' }}"
-                    href="{{ route('portfolios.create') }}">
-                    <i class="bi bi-plus-circle"></i>
-                    <span>Create Portfolio Page</span>
-                </a>
-            </li><!-- End My Page Page Nav -->
+            @php
+                use Illuminate\Support\Str;
+                use App\Models\DetailUser;
+
+                $thisUser = Auth::user();
+                $portfolio = DetailUser::where('user_id', $thisUser->id)->first();
+
+                // Generate a slug
+                $slugThisUser = Str::slug($thisUser->name);
+            @endphp
+
+            @if (isset($portfolio))
+                <li class="nav-item">
+                    <a class="nav-link {{ $active_page == 'create_portfolio' ? '' : 'collapsed' }}"
+                        href="{{ route('portfolio_show', ['id_detail_user' => $portfolio->id, 'name_user' => $slugThisUser]) }}">
+                        <i class="bi bi-arrow-right-circle"></i>
+                        <span>Go to my Portfolio Page</span>
+                    </a>
+                </li><!-- End My Page Page Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link {{ $active_page == 'skills' ? '' : 'collapsed' }}" href="#">
+                        <i class="bi bi-hand-thumbs-up"></i>
+                        <span>My Skill</span>
+                    </a>
+                </li><!-- End My skill Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link {{ $active_page == 'services' ? '' : 'collapsed' }}" href="/services">
+                        <i class="bi bi-journals"></i>
+                        <span>My Service</span>
+                    </a>
+                </li><!-- End My service Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link {{ $active_page == 'projects' ? '' : 'collapsed' }}" href="#">
+                        <i class="bi bi-folder2"></i>
+                        <span>My Project</span>
+                    </a>
+                </li><!-- End My Project Nav -->
+            @else
+                <li class="nav-item">
+                    <a class="nav-link {{ $active_page == 'create_portfolio' ? '' : 'collapsed' }}"
+                        href="{{ route('portfolios.create') }}">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Create Portfolio Page</span>
+                    </a>
+                </li><!-- End My create portfolio Nav -->
+            @endif
 
             {{-- profile pages heading --}}
             <li class="nav-heading">Profile Pages</li>

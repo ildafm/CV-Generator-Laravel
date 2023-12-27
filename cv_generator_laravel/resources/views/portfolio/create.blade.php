@@ -217,7 +217,7 @@
                                             @if (!old('twitter_url')) disabled @endif
                                             class="form-control @error('twitter_url') is-invalid @enderror"
                                             maxlength="255" value="{{ old('twitter_url') }}"
-                                            placeholder="https://www.twitter.com/#">
+                                            placeholder="https://www.twitter.com/# OR https://www.x.com/#">
                                         <div class="input-group-text"><i class="bi bi-twitter"></i></div>
                                         @error('twitter_url')
                                             <div class="text-danger small">{{ $message }}</div>

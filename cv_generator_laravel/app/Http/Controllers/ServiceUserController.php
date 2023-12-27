@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailUser;
 use App\Models\ServiceUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceUserController extends Controller
 {
+    private $titlePage, $activePage;
+    public function __construct()
+    {
+        $this->titlePage = 'Services';
+        $this->activePage = 'services';
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +23,13 @@ class ServiceUserController extends Controller
     public function index()
     {
         //
+        $detailUsers = DetailUser::where('user_id', Auth::user()->id)->first();
+        $services = ServiceUser::where('detail_user_id', $detailUsers->id)->get();
+
+        return view('services.index')
+            ->with('title_page', $this->titlePage)
+            ->with('active_page', $this->activePage)
+            ->with('services', $services);
     }
 
     /**

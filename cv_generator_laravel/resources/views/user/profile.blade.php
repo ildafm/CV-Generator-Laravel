@@ -43,20 +43,22 @@
                         </h3>
                         {{-- medsos list --}}
                         <div class="social-links mt-2">
-                            @if ($user->twitter_url != null)
-                                <a href="{{ $user->twitter_url }}" class="twitter"><i class="bi bi-twitter"></i></a>
+                            @if (isset($detail_user->twitter_url))
+                                <a href="{{ $detail_user->twitter_url }}" class="twitter"><i class="bi bi-twitter"></i></a>
                             @endif
 
-                            @if ($user->facebook_url != null)
-                                <a href="{{ $user->facebook_url }}" class="facebook"><i class="bi bi-facebook"></i></a>
+                            @if (isset($detail_user->facebook_url))
+                                <a href="{{ $detail_user->facebook_url }}" class="facebook"><i
+                                        class="bi bi-facebook"></i></a>
                             @endif
 
-                            @if ($user->instagram_url != null)
-                                <a href="{{ $user->instagram_url }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                            @if (isset($detail_user->instagram_url))
+                                <a href="{{ $detail_user->instagram_url }}" class="instagram"><i
+                                        class="bi bi-instagram"></i></a>
                             @endif
 
-                            @if ($user->linke_id_url != null)
-                                <a href="{{ $user->linke_id_url }}" class="linkeid"><i class="bi bi-linkeid"></i></a>
+                            @if (isset($detail_user->linke_id_url))
+                                <a href="{{ $detail_user->linke_id_url }}" class="linkeid"><i class="bi bi-linkeid"></i></a>
                             @endif
                         </div>
                     </div>
@@ -139,7 +141,7 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Address</div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ $user->address }}
+                                            {{ $detail_user->address }}
                                         </div>
                                     </div>
                                 @endif
@@ -150,11 +152,7 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Phone</div>
                                         <div class="col-lg-9 col-md-8">
-                                            @if ($user->phone != null)
-                                                {{ $user->phone }}
-                                            @else
-                                                <i>No number added yet</i>
-                                            @endif
+                                            {{ $detail_user->phone }}
                                         </div>
                                     </div>
                                 @endif
@@ -212,7 +210,7 @@
                                                 Me</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <textarea name="about_me" class="form-control" id="about_me" style="height: 100px"
-                                                    placeholder="Insert about yourself, max:1000 characters">{{ old('about_me', $user->about_me) }}</textarea>
+                                                    placeholder="Insert about yourself, max:1000 characters">{{ old('about_me', $detail_user->about_me) }}</textarea>
                                             </div>
                                         </div>
 
@@ -221,7 +219,7 @@
                                             <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="address" type="text" class="form-control" id="address"
-                                                    value="{{ old('address', $user->address) }}"
+                                                    value="{{ old('address', $detail_user->address) }}"
                                                     placeholder="Insert your full address, max:700 characters">
                                             </div>
                                         </div>
@@ -231,19 +229,19 @@
                                             <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="phone" type="text" class="form-control" id="Phone"
-                                                    value="{{ old('phone', $user->phone) }}"
+                                                    value="{{ old('phone', $detail_user->phone) }}"
                                                     placeholder="Insert your active whatsapp phone number. ex: 081...">
                                             </div>
                                         </div>
-
-                                        {{-- twitter profile --}}
+                                        {{-- instagram profile --}}
                                         <div class="row mb-3">
-                                            <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
+                                            <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="twitter" type="text" class="form-control" id="Twitter"
-                                                    value="{{ old('twitter', $user->twitter_url) }}"
-                                                    placeholder="https://twitter.com/#">
+                                                <input name="instagram" type="text" class="form-control"
+                                                    id="Instagram"
+                                                    value="{{ old('instagram', $detail_user->instagram_url) }}"
+                                                    placeholder="https://instagram.com/#">
                                             </div>
                                         </div>
 
@@ -253,19 +251,21 @@
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="facebook" type="text" class="form-control"
-                                                    id="Facebook" value="{{ old('facebook', $user->facebook_url) }}"
+                                                    id="Facebook"
+                                                    value="{{ old('facebook', $detail_user->facebook_url) }}"
                                                     placeholder="https://facebook.com/#">
                                             </div>
                                         </div>
 
-                                        {{-- instagram profile --}}
+
+                                        {{-- twitter profile --}}
                                         <div class="row mb-3">
-                                            <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
+                                            <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="instagram" type="text" class="form-control"
-                                                    id="Instagram" value="{{ old('instagram', $user->instagram_url) }}"
-                                                    placeholder="https://instagram.com/#">
+                                                <input name="twitter" type="text" class="form-control" id="Twitter"
+                                                    value="{{ old('twitter', $detail_user->twitter_url) }}"
+                                                    placeholder="https://www.twitter.com/# OR https://www.x.com/#">
                                             </div>
                                         </div>
 
@@ -275,8 +275,9 @@
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="linkedin" type="text" class="form-control"
-                                                    id="Linkedin" value="{{ old('linkedin', $user->linked_in_url) }}"
-                                                    placeholder="https://instagram.com/#">
+                                                    id="Linkedin"
+                                                    value="{{ old('linkedin', $detail_user->linked_in_url) }}"
+                                                    placeholder="https://www.linkedin.com/in/#">
                                             </div>
                                         </div>
                                     @endif

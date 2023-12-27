@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ServiceUserController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,15 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/x', function () {
-//     return view('user.profile');
-// });
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::resource('services', ServiceUserController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('user_profile');
 });
+
+Route::get('portfolios/{id_detail_user}/{name_user}', [PortfolioController::class, "portfolio"])->name('portfolio_show');
+
 
 
 Route::get('/dashboard', function () {

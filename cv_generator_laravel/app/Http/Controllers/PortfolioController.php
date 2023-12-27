@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailUser;
+use App\Models\ProjectUser;
+use App\Models\ServiceUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -130,7 +132,7 @@ class PortfolioController extends Controller
     public function show($id)
     {
         //
-        echo "my portfolio page";
+
     }
 
     /**
@@ -165,5 +167,19 @@ class PortfolioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function portfolio($id_detail_user, $name_user)
+    {
+        $detail_user = DetailUser::findOrFail($id_detail_user);
+        $user = User::where('id', $detail_user->user_id)->first();
+        $services = ServiceUser::where('detail_user_id', $id_detail_user)->get();
+        $projects = ProjectUser::where('detail_user_id', $id_detail_user)->get();
+
+        return view('portfolio.show')
+            ->with('user', $user)
+            ->with('projects', $projects)
+            ->with('services', $services)
+            ->with('detail_user', $detail_user);
     }
 }
