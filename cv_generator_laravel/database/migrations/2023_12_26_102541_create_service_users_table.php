@@ -16,8 +16,9 @@ class CreateServiceUsersTable extends Migration
     {
         Schema::create('service_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Kolom untuk relasi ke tabel users
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('detail_user_id'); // Kolom untuk relasi ke tabel users
+            $table->foreign('detail_user_id')->references('id')->on('detail_users')->onDelete('cascade');
+
             $table->string('service_name', 100);
             $table->string('service_detail', 255);
 

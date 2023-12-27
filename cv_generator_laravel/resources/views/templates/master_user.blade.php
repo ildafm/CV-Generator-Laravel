@@ -215,7 +215,7 @@
             <li class="nav-heading">My Portfolio Page</li>
             <li class="nav-item">
                 <a class="nav-link {{ $active_page == 'create_portfolio' ? '' : 'collapsed' }}"
-                    href="/portfolio/create">
+                    href="{{ route('portfolios.create') }}">
                     <i class="bi bi-plus-circle"></i>
                     <span>Create Portfolio Page</span>
                 </a>

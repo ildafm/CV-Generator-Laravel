@@ -19,8 +19,9 @@ class CreateDetailUsersTable extends Migration
             $table->unsignedBigInteger('user_id'); // Kolom untuk relasi ke tabel users
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
+            $table->string('role');
             $table->string('abilities', 500);
-            $table->string('address', 700);
+            $table->string('address');
             $table->string('about_me', 1000);
             $table->string('phone', 20);
             $table->string('linked_in_url')->nullable();

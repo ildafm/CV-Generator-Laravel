@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class PortfolioController extends Controller
 {
@@ -34,6 +36,12 @@ class PortfolioController extends Controller
     {
         //
         $user = User::findOrFail(Auth::user()->id);
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
+
+        if (isset($detail_user)) {
+            return redirect()->route('portfolios.show', $detail_user->id);
+        }
+
         return view('portfolio.create')
             ->with('active_page', 'create_portfolio')
             ->with('user', $user)
@@ -49,6 +57,68 @@ class PortfolioController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            $validateData = $request->validate([
+                'phone' => 'required|numeric|digits_between:12,20',
+                'about_me' => 'required|max:800|string',
+                'address' => 'required|max:255|string',
+                'role' => 'required|max:255|string',
+                'abilities_1' => 'required|max:100|string',
+                'abilities_2' => 'max:100|string',
+                'abilities_3' => 'max:100|string',
+                'instagram_url' => 'max:255|string|regex:/https:\/\/www\.instagram\.com\//',
+                'facebook_url' => 'max:255|string|regex:/https:\/\/www\.facebook\.com\//',
+                'twitter_url' => 'max:255|string|regex:/https:\/\/www\.x\.com\//|regex:/https:\/\/www\.twitter\.com\//',
+                'linkedin_url' => 'max:255|string|regex:/https:\/\/www\.linkedin\.com\/in\//',
+            ], [
+                'instagram_url.regex' => 'The :attribute must contain the phrase "https://www.instagram.com/".',
+                'facebook_url.regex' => 'The :attribute must contain the phrase "https://www.facebook.com/".',
+                'twitter_url.regex' => 'The :attribute must contain the phrase "https://www.x.com/" or "https://www.twitter.com/".',
+                'linkedin_url.regex' => 'The :attribute must contain the phrase "https://www.linkedin.com/in/".',
+            ]);
+
+            $abilities = $validateData['abilities_1'];
+
+            if (isset($validateData['abilities_2'])) {
+                $abilities .= '&&' . $validateData['abilities_2'];
+            }
+
+            if (isset($validateData['abilities_3'])) {
+                $abilities .= '&&' . $validateData['abilities_3'];
+            }
+
+            $portfolio = new DetailUser();
+
+            $portfolio->user_id = Auth::user()->id;
+            $portfolio->about_me = $validateData['about_me'];
+            $portfolio->address = $validateData['address'];
+            $portfolio->role = $validateData['role'];
+            $portfolio->abilities = $abilities;
+            $portfolio->about_me = $validateData['about_me'];
+            $portfolio->phone = $validateData['phone'];
+            if (isset($validateData['instagram_url'])) {
+                $portfolio->instagram_url = $validateData['instagram_url'];
+            }
+            if (isset($validateData['facebook_url'])) {
+                $portfolio->facebook_url = $validateData['facebook_url'];
+            }
+            if (isset($validateData['twitter_url'])) {
+                $portfolio->twitter_url = $validateData['twitter_url'];
+            }
+            if (isset($validateData['linkedin_url'])) {
+                $portfolio->linked_in_url = $validateData['linkedin_url'];
+            }
+
+            $portfolio->save();
+
+            $getPortfolio = DetailUser::where('user_id', Auth::user()->id)->first();
+            return redirect()->route('portfolios.show', $getPortfolio->id);
+        }
+        // Jika terjadi kesalahan validasi, tambahkan pesan error
+        catch (ValidationException $e) {
+            $request->session()->flash('pesan_error', 'Something is wrong, please try again');
+            return redirect()->back()->withInput()->withErrors($e->validator->errors());
+        }
     }
 
     /**
@@ -60,6 +130,7 @@ class PortfolioController extends Controller
     public function show($id)
     {
         //
+        echo "my portfolio page";
     }
 
     /**
