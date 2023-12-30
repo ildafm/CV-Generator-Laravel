@@ -4,7 +4,6 @@
         <h1>My Services</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item active">My Service</li>
             </ol>
         </nav>
@@ -76,7 +75,7 @@
                                 <tr>
                                     <td colspan="4">
                                         <a href="{{ route('services.create') }}" style="float: right"
-                                            class="btn btn-sm btn-primary">Add new Service</a>
+                                            class="btn btn-sm btn-primary">Add new service data (max:6)</a>
                                     </td>
                                 </tr>
                             </tfoot>

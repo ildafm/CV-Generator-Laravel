@@ -34,11 +34,10 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Skills</h1>
+        <h1>My Skills</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/skills">Skill</a></li>
+                <li class="breadcrumb-item"><a href="/skills">My Skills</a></li>
                 <li class="breadcrumb-item active">Create</li>
             </ol>
         </nav>

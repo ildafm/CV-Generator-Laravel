@@ -153,13 +153,21 @@
                         data-bs-toggle="dropdown">
                         <img src="{{ asset('user_page_template/img/profile-img.jpg') }}" alt="Profile"
                             class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                        {{-- <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span> --}}
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
-                            <span>Web Designer</span>
+                            <h6>{{ Auth::user()->name }}</h6>
+                            <span>
+                                @if (Auth::user()->package == 'F')
+                                    Free Account
+                                @elseif(Auth::user()->package == 'P')
+                                    Premium Account
+                                @else
+                                    Errors in data collection
+                                @endif
+                            </span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -177,7 +185,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <a class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="bi bi-gear"></i>
                                 <span>Account Settings</span>
                             </a>
@@ -187,7 +195,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                            <a class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="bi bi-question-circle"></i>
                                 <span>Need Help?</span>
                             </a>
@@ -197,7 +205,13 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            {{-- logout form --}}
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -216,12 +230,16 @@
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
+            {{-- profile pages heading --}}
+            <li class="nav-heading">Profile Pages</li>
+
             <li class="nav-item">
-                <a class="nav-link {{ $active_page == 'dashboard' ? '' : 'collapsed' }}" href="#">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
+                <a class="nav-link {{ $active_page == 'profile' ? '' : 'collapsed' }}"
+                    href="{{ route('user_profile', ['user' => Auth::user()->id]) }}">
+                    <i class="bi bi-person"></i>
+                    <span>My Profile</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li><!-- End Profile Page Nav -->
 
             <li class="nav-heading">My Portfolio Page</li>
             @php
@@ -275,23 +293,12 @@
                 </li><!-- End My create portfolio Nav -->
             @endif
 
-            {{-- profile pages heading --}}
-            <li class="nav-heading">Profile Pages</li>
-
-            <li class="nav-item">
-                <a class="nav-link {{ $active_page == 'profile' ? '' : 'collapsed' }}"
-                    href="{{ route('user_profile', ['user' => Auth::user()->id]) }}">
-                    <i class="bi bi-person"></i>
-                    <span>My Profile</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
-
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ $active_page == 'contact' ? '' : 'collapsed' }}" href="pages-contact.html">
                     <i class="bi bi-envelope"></i>
                     <span>My Contact</span>
                 </a>
-            </li><!-- End Contact Page Nav -->
+            </li><!-- End Contact Page Nav --> --}}
 
             {{-- end profile pages heading --}}
         </ul>

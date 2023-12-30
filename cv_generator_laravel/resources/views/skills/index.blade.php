@@ -4,7 +4,6 @@
         <h1>My Skills</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item active">My Skill</li>
             </ol>
         </nav>
@@ -76,7 +75,7 @@
                                 <tr>
                                     <td colspan="4">
                                         <a href="{{ route('skills.create') }}" style="float: right"
-                                            class="btn btn-sm btn-primary">Add new skill</a>
+                                            class="btn btn-sm btn-primary">Add new skill data (max:4)</a>
                                     </td>
                                 </tr>
                             </tfoot>

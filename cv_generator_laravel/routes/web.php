@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ServiceUserController;
@@ -23,6 +24,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('users', UserController::class);
     Route::resource('skills', SkillUserController::class);
     Route::resource('services', ServiceUserController::class);
@@ -33,11 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('portfolios/{id_detail_user}/{name_user}', [PortfolioController::class, "portfolio"])->name('portfolio_show');
 
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 require __DIR__ . '/auth.php';
