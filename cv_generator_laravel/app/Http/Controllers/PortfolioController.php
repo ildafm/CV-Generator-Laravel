@@ -8,6 +8,7 @@ use App\Models\ServiceUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class PortfolioController extends Controller
@@ -41,7 +42,10 @@ class PortfolioController extends Controller
         $detail_user = DetailUser::where('user_id', $user->id)->first();
 
         if (isset($detail_user)) {
-            return redirect()->route('portfolios.show', $detail_user->id);
+            return redirect()->route('portfolio_show', [
+                'id_detail_user' => $detail_user->id,
+                'name_user' => Str::slug($user->name),
+            ]);
         }
 
         return view('portfolio.create')

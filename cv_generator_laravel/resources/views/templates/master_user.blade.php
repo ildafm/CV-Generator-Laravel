@@ -238,7 +238,8 @@
             @if (isset($portfolio))
                 <li class="nav-item">
                     <a class="nav-link {{ $active_page == 'create_portfolio' ? '' : 'collapsed' }}"
-                        href="{{ route('portfolio_show', ['id_detail_user' => $portfolio->id, 'name_user' => $slugThisUser]) }}">
+                        href="{{ route('portfolio_show', ['id_detail_user' => $portfolio->id, 'name_user' => $slugThisUser]) }}"
+                        target="_blank">
                         <i class="bi bi-arrow-right-circle"></i>
                         <span>Go to my Portfolio Page</span>
                     </a>

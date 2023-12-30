@@ -7,14 +7,14 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="/services">Service</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item active">Edit</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Adding a new service</h5>
+            <h5 class="card-title">Updating your service about {{ $serviceUser->service_name }}</h5>
 
             {{-- session message --}}
             @if (session()->has('pesan_error'))
@@ -25,8 +25,9 @@
             @endif
 
             <!-- General Form Elements -->
-            <form action="{{ route('services.store') }}" method="POST"
+            <form action="{{ route('services.update', ['service' => $serviceUser->id]) }}" method="POST"
                 onsubmit="document.getElementById('btn_submit').disabled = true">
+                @method('PUT')
                 @csrf
 
                 <div class="form-group mb-2">
@@ -34,7 +35,7 @@
                     <input name="service_name" type="text"
                         class="form-control @error('service_name') is-invalid @enderror"
                         placeholder="ex: Web Developer OR Android Developer|max:50 characters" maxlength="50"
-                        value="{{ old('service_name') }}" required>
+                        value="{{ old('service_name', $serviceUser->service_name) }}" required>
                     @error('service_name')
                         <div class="small text-danger">{{ $message }}</div>
                     @enderror
@@ -43,7 +44,7 @@
                 <div class="form-group mb-2">
                     <label for="service_detail" class="form-label">Detail of Your Service</label>
                     <textarea name="service_detail" id="" style="height: 100%" placeholder="max:200 characters" maxlength="200"
-                        required class="form-control @error('service_detail') is-invalid @enderror" onkeyup="count_up(this);">{{ old('service_detail') }}</textarea>
+                        required class="form-control @error('service_detail') is-invalid @enderror" onkeyup="count_up(this);">{{ old('service_detail', $serviceUser->service_detail) }}</textarea>
                     <span class="text-muted pull-right" id="count1">Character count:
                         0/200</span>
                     @error('service_detail')

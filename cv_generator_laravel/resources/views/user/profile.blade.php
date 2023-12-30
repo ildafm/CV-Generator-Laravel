@@ -5,7 +5,7 @@
         <h1>Profile</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 {{-- <li class="breadcrumb-item">Users</li> --}}
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
@@ -226,11 +226,14 @@
 
                                         {{-- phone number --}}
                                         <div class="row mb-3">
-                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone
+                                                Number</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="phone" type="text" class="form-control" id="Phone"
+                                                <input name="phone" type="number" class="form-control" id="Phone"
                                                     value="{{ old('phone', $detail_user->phone) }}"
-                                                    placeholder="Insert your active whatsapp phone number. ex: 081...">
+                                                    oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                    type = "number" maxlength="20"
+                                                    placeholder="081... Your phone number must be active whatsapp">
                                             </div>
                                         </div>
                                         {{-- instagram profile --}}
