@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailUser;
 use App\Models\ProjectUser;
 use App\Models\ServiceUser;
+use App\Models\SkillUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +16,11 @@ class PortfolioController extends Controller
 {
 
     private $active_page, $title_page;
+
     public function __construct()
     {
-        $active_page = 'portfolio';
-        $title_page = 'Portfolio';
+        $this->active_page = 'portfolio';
+        $this->title_page = 'Portfolio';
     }
     /**
      * Display a listing of the resource.
@@ -136,7 +138,6 @@ class PortfolioController extends Controller
     public function show($id)
     {
         //
-
     }
 
     /**
@@ -177,13 +178,16 @@ class PortfolioController extends Controller
     {
         $detail_user = DetailUser::findOrFail($id_detail_user);
         $user = User::where('id', $detail_user->user_id)->first();
+        $skills = SkillUser::where('detail_user_id', $id_detail_user)->get();
         $services = ServiceUser::where('detail_user_id', $id_detail_user)->get();
         $projects = ProjectUser::where('detail_user_id', $id_detail_user)->get();
 
+
         return view('portfolio.show')
             ->with('user', $user)
-            ->with('projects', $projects)
+            ->with('skills', $skills)
             ->with('services', $services)
+            ->with('projects', $projects)
             ->with('detail_user', $detail_user);
     }
 }

@@ -126,30 +126,24 @@
                                         </div>
                                     </div>
 
-                                    {{-- skill wip --}}
-                                    {{-- <div class="skill-mf">
+                                    {{-- skill menu --}}
+                                    <div class="skill-mf">
                                         <p class="title-s">Skill</p>
-                                        <span>HTML</span> <span class="pull-right">85%</span>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 85%;"
-                                                aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <span>CSS3</span> <span class="pull-right">75%</span>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 75%"
-                                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <span>PHP</span> <span class="pull-right">50%</span>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 50%"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <span>JAVASCRIPT</span> <span class="pull-right">90%</span>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 90%"
-                                                aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div> --}}
+                                        @if (count($skills) > 0)
+
+                                            @foreach ($skills as $item)
+                                                <span>{{ $item->skill_name }}</span>
+                                                <span class="pull-right">{{ $item->skill_confident }}%</span>
+
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar"
+                                                        style="width: {{ $item->skill_confident }}%;"
+                                                        aria-valuenow="{{ $item->skill_confident }}" aria-valuemin="1"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
                                 </div>
                                 {{-- about me --}}
                                 <div class="col-md-6">
@@ -430,45 +424,46 @@
                                             </h5>
                                         </div>
                                         <div>
-                                            <form action="forms/contact.php" method="post" role="form"
-                                                class="php-email-form">
-                                                <div class="row">
-                                                    <div class="col-md-12 mb-3">
-                                                        <div class="form-group">
-                                                            <input type="text" name="name" class="form-control"
-                                                                id="name" placeholder="Your Name" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 mb-3">
-                                                        <div class="form-group">
-                                                            <input type="email" class="form-control" name="email"
-                                                                id="email" placeholder="Your Email" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 mb-3">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" name="subject"
-                                                                id="subject" placeholder="Subject" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 text-center my-3">
-                                                        <div class="loading">Loading</div>
-                                                        <div class="error-message"></div>
-                                                        <div class="sent-message">Your message has been sent. Thank
-                                                            you!</div>
-                                                    </div>
-                                                    <div class="col-md-12 text-center">
-                                                        <button type="submit"
-                                                            class="button button-a button-big button-rouded">Send
-                                                            Message</button>
+                                            {{-- <form action="#" method="post" role="form"
+                                                onsubmit="alert('Work in progress');" class="php-email-form"> --}}
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3">
+                                                    <div class="form-group">
+                                                        <input type="text" name="name" class="form-control"
+                                                            id="name" placeholder="Your Name" required>
                                                     </div>
                                                 </div>
-                                            </form>
+                                                <div class="col-md-12 mb-3">
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control" name="email"
+                                                            id="email" placeholder="Your Email" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mb-3">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="subject"
+                                                            id="subject" placeholder="Subject" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 text-center my-3">
+                                                    {{-- <div class="loading">Loading</div>
+                                                    <div class="error-message"></div>
+                                                    <div class="sent-message">Your message has been sent. Thank
+                                                        you!</div> --}}
+                                                </div>
+                                                <div class="col-md-12 text-center">
+                                                    <button type="submit"
+                                                        class="button button-a button-big button-rouded"
+                                                        onclick="alert('Work in progress, sorry');">Send
+                                                        Message</button>
+                                                </div>
+                                            </div>
+                                            {{-- </form> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -493,6 +488,7 @@
                                                 <li><span class="bi bi-envelope"></span>{{ $user->email }}</li>
                                             </ul>
                                         </div>
+                                        {{-- list item sosial media --}}
                                         <div class="socials">
                                             <ul>
                                                 {{-- instagram --}}
@@ -533,11 +529,14 @@
                                                 {{-- linkedin --}}
                                                 @if (isset($detail_user->linked_in_url))
                                                     <li>
-                                                        <a target="_blank"
-                                                            href="{{ $detail_user->linked_in_url }}"><span
-                                                                class="ico-circle" title="go to my linkedin profile">
+                                                        <a target="_blank" href="{{ $detail_user->linked_in_url }}">
+                                                            <span class="ico-circle"
+                                                                title="go to my linkedin profile">
                                                                 <i class="bi bi-linkedin"
-                                                                    style="display: flex; align-items: center; justify-content: center; height: 100%;"></i></span></a>
+                                                                    style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                                                                </i>
+                                                            </span>
+                                                        </a>
                                                     </li>
                                                 @endif
 
