@@ -20,7 +20,7 @@ class CreateProjectUsersTable extends Migration
             $table->foreign('detail_user_id')->references('id')->on('detail_users')->onDelete('cascade');
             $table->string('image_path')->nullable();
             $table->string('project_name', 100);
-            $table->string('project_category', 100);
+            $table->string('project_category', 20);
             $table->date('project_created_date')->nullable();
 
             // Tambahkan default dan onUpdate untuk timestamps

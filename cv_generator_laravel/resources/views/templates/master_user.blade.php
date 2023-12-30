@@ -260,7 +260,7 @@
                 </li><!-- End My service Nav -->
 
                 <li class="nav-item">
-                    <a class="nav-link {{ $active_page == 'projects' ? '' : 'collapsed' }}" href="#">
+                    <a class="nav-link {{ $active_page == 'projects' ? '' : 'collapsed' }}" href="/projects">
                         <i class="bi bi-folder2"></i>
                         <span>My Project</span>
                     </a>

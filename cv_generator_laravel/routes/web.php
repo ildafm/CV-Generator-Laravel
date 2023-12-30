@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ServiceUserController;
 use App\Http\Controllers\SkillUserController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('skills', SkillUserController::class);
     Route::resource('services', ServiceUserController::class);
+    Route::resource('projects', ProjectUserController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('user_profile');
 });

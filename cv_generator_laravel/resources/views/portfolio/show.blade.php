@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>{{ $user->name }} Portfolio Page</title>
+    <title>{{ $user->name }} | Portfolio Page</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -227,181 +227,36 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="work-box">
-                                <a href="{{ asset('portfolio_page_template/img/work-1.jpg') }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                    <div class="work-img">
-                                        <img src="{{ asset('portfolio_page_template/img/work-1.jpg') }}"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="work-content">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2 class="w-title">Lorem impsum dolor</h2>
-                                            <div class="w-more">
-                                                <span class="w-ctegory">Web Design</span> / <span class="w-date">18
-                                                    Sep.
-                                                    2018</span>
-                                            </div>
+                        {{-- project list box --}}
+                        @foreach ($projects as $item)
+                            <div class="col-md-4">
+                                <div class="work-box">
+                                    <a href="{{ asset('portfolio_page_template/img/work-1.jpg') }}"
+                                        data-gallery="portfolioGallery">
+                                        <div class="work-img">
+                                            <img src="{{ asset('portfolio_page_template/img/work-1.jpg') }}"
+                                                alt="" class="img-fluid">
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="w-like">
-                                                <a href="portfolio-details.html"> <span
-                                                        class="bi bi-plus-circle"></span></a>
+                                    </a>
+                                    <div class="work-content">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <h2 class="w-title">{{ $item->project_name }}</h2>
+                                                <div class="w-more">
+                                                    <span class="w-ctegory">{{ $item->project_category }}</span> /
+                                                    <span class="w-date">{{ $item->project_created_date }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="work-box">
-                                <a href="{{ asset('portfolio_page_template/img/work-2.jpg') }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                    <div class="work-img">
-                                        <img src="{{ asset('portfolio_page_template/img/work-2.jpg') }}"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="work-content">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2 class="w-title">Loreda Cuno Nere</h2>
-                                            <div class="w-more">
-                                                <span class="w-ctegory">Web Design</span> / <span class="w-date">18
-                                                    Sep.
-                                                    2018</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="w-like">
-                                                <a href="portfolio-details.html"> <span
-                                                        class="bi bi-plus-circle"></span></a>
+                                            <div class="col-sm-4">
+                                                <div class="w-like">
+                                                    <a href="#"> <span class="bi bi-link-45deg"></span></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="work-box">
-                                <a href="{{ asset('portfolio_page_template/img/work-3.jpg') }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                    <div class="work-img">
-                                        <img src="{{ asset('portfolio_page_template/img/work-3.jpg') }}"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="work-content">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2 class="w-title">Mavrito Lana Dere</h2>
-                                            <div class="w-more">
-                                                <span class="w-ctegory">Web Design</span> / <span class="w-date">18
-                                                    Sep.
-                                                    2018</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="w-like">
-                                                <a href="portfolio-details.html"> <span
-                                                        class="bi bi-plus-circle"></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="work-box">
-                                <a href="{{ asset('portfolio_page_template/img/work-4.jpg') }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                    <div class="work-img">
-                                        <img src="{{ asset('portfolio_page_template/img/work-4.jpg') }}"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="work-content">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2 class="w-title">Bindo Laro Cado</h2>
-                                            <div class="w-more">
-                                                <span class="w-ctegory">Web Design</span> / <span class="w-date">18
-                                                    Sep.
-                                                    2018</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="w-like">
-                                                <a href="portfolio-details.html"> <span
-                                                        class="bi bi-plus-circle"></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="work-box">
-                                <a href="{{ asset('portfolio_page_template/img/work-5.jpg') }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                    <div class="work-img">
-                                        <img src="{{ asset('portfolio_page_template/img/work-5.jpg') }}"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="work-content">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2 class="w-title">Studio Lena Mado</h2>
-                                            <div class="w-more">
-                                                <span class="w-ctegory">Web Design</span> / <span class="w-date">18
-                                                    Sep.
-                                                    2018</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="w-like">
-                                                <a href="portfolio-details.html"> <span
-                                                        class="bi bi-plus-circle"></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="work-box">
-                                <a href="{{ asset('portfolio_page_template/img/work-6.jpg') }}"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                    <div class="work-img">
-                                        <img src="{{ asset('portfolio_page_template/img/work-6.jpg') }}"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="work-content">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h2 class="w-title">Studio Big Bang</h2>
-                                            <div class="w-more">
-                                                <span class="w-ctegory">Web Design</span> / <span class="w-date">18
-                                                    Sep.
-                                                    2017</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="w-like">
-                                                <a href="portfolio-details.html"> <span
-                                                        class="bi bi-plus-circle"></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
             </section><!-- End Project Section -->
