@@ -190,109 +190,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="service-box">
-                                <div class="service-ico">
-                                    <span class="ico-circle"><i class="bi bi-briefcase"></i></span>
-                                </div>
-                                <div class="service-content">
-                                    <h2 class="s-title">Web Design</h2>
-                                    <p class="s-description text-center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni adipisci eaque
-                                        autem
-                                        fugiat! Quia,
-                                        provident vitae! Magni
-                                        tempora perferendis eum non provident.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="service-box">
-                                <div class="service-ico">
-                                    <span class="ico-circle"><i class="bi bi-card-checklist"></i></span>
-                                </div>
-                                <div class="service-content">
-                                    <h2 class="s-title">Web Development</h2>
-                                    <p class="s-description text-center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni adipisci eaque
-                                        autem
-                                        fugiat! Quia,
-                                        provident vitae! Magni
-                                        tempora perferendis eum non provident.
-                                    </p>
+
+                    <div id="serviceContainer" class="row">
+                        {{-- service list --}}
+                        @foreach ($services as $item)
+                            <div class="col-md-4">
+                                <div class="service-box">
+                                    <div class="service-ico">
+                                        <span class="ico-circle"><i class="bi bi-briefcase"></i></span>
+                                    </div>
+                                    <div class="service-content">
+                                        <h2 class="s-title">{{ $item->service_name }}</h2>
+                                        <p class="s-description text-center">
+                                            {{ $item->service_detail }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="service-box">
-                                <div class="service-ico">
-                                    <span class="ico-circle"><i class="bi bi-bar-chart"></i></span>
-                                </div>
-                                <div class="service-content">
-                                    <h2 class="s-title">Photography</h2>
-                                    <p class="s-description text-center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni adipisci eaque
-                                        autem
-                                        fugiat! Quia,
-                                        provident vitae! Magni
-                                        tempora perferendis eum non provident.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="service-box">
-                                <div class="service-ico">
-                                    <span class="ico-circle"><i class="bi bi-binoculars"></i></span>
-                                </div>
-                                <div class="service-content">
-                                    <h2 class="s-title">Responsive Design</h2>
-                                    <p class="s-description text-center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni adipisci eaque
-                                        autem
-                                        fugiat! Quia,
-                                        provident vitae! Magni
-                                        tempora perferendis eum non provident.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="service-box">
-                                <div class="service-ico">
-                                    <span class="ico-circle"><i class="bi bi-brightness-high"></i></span>
-                                </div>
-                                <div class="service-content">
-                                    <h2 class="s-title">Graphic Design</h2>
-                                    <p class="s-description text-center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni adipisci eaque
-                                        autem
-                                        fugiat! Quia,
-                                        provident vitae! Magni
-                                        tempora perferendis eum non provident.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="service-box">
-                                <div class="service-ico">
-                                    <span class="ico-circle"><i class="bi bi-calendar4-week"></i></span>
-                                </div>
-                                <div class="service-content">
-                                    <h2 class="s-title">Marketing Services</h2>
-                                    <p class="s-description text-center">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni adipisci eaque
-                                        autem
-                                        fugiat! Quia,
-                                        provident vitae! Magni
-                                        tempora perferendis eum non provident.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </section>
@@ -651,7 +566,7 @@
         </div>
     </footer><!-- End  Footer -->
 
-    <div id="preloader"></div>
+    {{-- <div id="preloader"></div> --}}
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
@@ -665,6 +580,29 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('portfolio_page_template/js/main.js') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Temukan elemen dengan ID "serviceContainer"
+            let serviceContainer = document.getElementById("serviceContainer");
+
+            // Dapatkan semua elemen dengan kelas "service-box"
+            let serviceBoxes = serviceContainer.getElementsByClassName("service-box");
+
+            // Temukan tinggi maksimum
+            let maxHeight = 0;
+            for (let i = 0; i < serviceBoxes.length; i++) {
+                let height = serviceBoxes[i].offsetHeight;
+                maxHeight = Math.max(maxHeight, height);
+            }
+
+            // Terapkan tinggi maksimum ke semua elemen
+            for (let i = 0; i < serviceBoxes.length; i++) {
+                serviceBoxes[i].style.height = maxHeight + "px";
+            }
+        });
+    </script>
+
 
 </body>
 
