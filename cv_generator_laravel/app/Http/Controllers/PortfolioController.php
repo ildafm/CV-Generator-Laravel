@@ -30,6 +30,15 @@ class PortfolioController extends Controller
     public function index()
     {
         //
+        $user = User::findOrFail(Auth::user()->id);
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
+
+        if (isset($detail_user)) {
+            return redirect()->route('portfolio_show', [
+                'id_detail_user' => $detail_user->id,
+                'name_user' => Str::slug($user->name),
+            ]);
+        }
     }
 
     /**
@@ -138,6 +147,15 @@ class PortfolioController extends Controller
     public function show($id)
     {
         //
+        $user = User::findOrFail(Auth::user()->id);
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
+
+        if (isset($detail_user)) {
+            return redirect()->route('portfolio_show', [
+                'id_detail_user' => $detail_user->id,
+                'name_user' => Str::slug($user->name),
+            ]);
+        }
     }
 
     /**
@@ -149,6 +167,15 @@ class PortfolioController extends Controller
     public function edit($id)
     {
         //
+        $user = User::findOrFail(Auth::user()->id);
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
+
+        if (isset($detail_user)) {
+            return redirect()->route('portfolio_show', [
+                'id_detail_user' => $detail_user->id,
+                'name_user' => Str::slug($user->name),
+            ]);
+        }
     }
 
     /**
@@ -161,6 +188,15 @@ class PortfolioController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::findOrFail(Auth::user()->id);
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
+
+        if (isset($detail_user)) {
+            return redirect()->route('portfolio_show', [
+                'id_detail_user' => $detail_user->id,
+                'name_user' => Str::slug($user->name),
+            ]);
+        }
     }
 
     /**
@@ -172,6 +208,15 @@ class PortfolioController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail(Auth::user()->id);
+        $detail_user = DetailUser::where('user_id', $user->id)->first();
+
+        if (isset($detail_user)) {
+            return redirect()->route('portfolio_show', [
+                'id_detail_user' => $detail_user->id,
+                'name_user' => Str::slug($user->name),
+            ]);
+        }
     }
 
     public function portfolio($id_detail_user, $name_user)
@@ -181,7 +226,6 @@ class PortfolioController extends Controller
         $skills = SkillUser::where('detail_user_id', $id_detail_user)->get();
         $services = ServiceUser::where('detail_user_id', $id_detail_user)->get();
         $projects = ProjectUser::where('detail_user_id', $id_detail_user)->get();
-
 
         return view('portfolio.show')
             ->with('user', $user)
