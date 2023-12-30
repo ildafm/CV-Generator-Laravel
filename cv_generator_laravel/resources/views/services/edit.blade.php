@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button id="btn_submit" type="submit" class="btn btn-primary">Save</button>
+                    <button id="btn_submit" type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
 
             </form><!-- End General Form Elements -->

@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProjectUser extends Model
+class SkillUser extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['skill_name', 'skill_confident'];
 }

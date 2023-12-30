@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>DevFolio Bootstrap Portfolio Template - Index</title>
+    <title>{{ $user->name }} Portfolio Page</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -478,16 +478,16 @@
                                             </h5>
                                         </div>
                                         <div class="more-info">
-                                            <p class="lead">
+                                            {{-- <p class="lead">
                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum
                                                 dolorem soluta quidem
                                                 expedita aperiam aliquid at.
                                                 Totam magni ipsum suscipit amet? Autem nemo esse laboriosam ratione
                                                 nobis
                                                 mollitia inventore?
-                                            </p>
+                                            </p> --}}
                                             <ul class="list-ico">
-                                                <li><span class="bi bi-geo-alt"></span> {{ $detail_user->address }}
+                                                <li><span class="bi bi-geo-alt"></span>{{ $detail_user->address }}
                                                 </li>
                                                 <li><span class="bi bi-phone"></span>{{ $detail_user->phone }}</li>
                                                 <li><span class="bi bi-envelope"></span>{{ $user->email }}</li>
@@ -498,36 +498,46 @@
                                                 {{-- instagram --}}
                                                 @if (isset($detail_user->instagram_url))
                                                     <li>
-                                                        <a href="{{ $detail_user->instagram_url }}"><span
-                                                                class="ico-circle" title="go to my instagram profile">
-                                                                <i class="bi bi-instagram"></i></span></a>
+                                                        <a target="_blank" href="{{ $detail_user->instagram_url }}">
+                                                            <span class="ico-circle"
+                                                                title="go to my instagram profile">
+                                                                <i class="bi bi-instagram"
+                                                                    style="display: flex; align-items: center; justify-content: center; height: 100%;"></i>
+                                                            </span>
+                                                        </a>
                                                     </li>
                                                 @endif
 
                                                 {{-- facebook --}}
                                                 @if (isset($detail_user->facebook_url))
                                                     <li>
-                                                        <a href="{{ $detail_user->facebook_url }}"><span
+                                                        <a target="_blank"
+                                                            href="{{ $detail_user->facebook_url }}"><span
                                                                 class="ico-circle" title="go to my facebook profile">
-                                                                <i class="bi bi-facebook"></i></span></a>
+                                                                <i class="bi bi-facebook"
+                                                                    style="display: flex; align-items: center; justify-content: center; height: 100%;"></i></span></a>
                                                     </li>
                                                 @endif
 
                                                 {{-- twitter --}}
                                                 @if (isset($detail_user->twitter_url))
                                                     <li>
-                                                        <a href="{{ $detail_user->twitter_url }}"><span
+                                                        <a target="_blank"
+                                                            href="{{ $detail_user->twitter_url }}"><span
                                                                 class="ico-circle" title="go to my twitter profile">
-                                                                <i class="bi bi-twitter"></i></span></a>
+                                                                <i class="bi bi-twitter"
+                                                                    style="display: flex; align-items: center; justify-content: center; height: 100%;"></i></span></a>
                                                     </li>
                                                 @endif
 
                                                 {{-- linkedin --}}
                                                 @if (isset($detail_user->linked_in_url))
                                                     <li>
-                                                        <a href="{{ $detail_user->linked_in_url }}"><span
+                                                        <a target="_blank"
+                                                            href="{{ $detail_user->linked_in_url }}"><span
                                                                 class="ico-circle" title="go to my linkedin profile">
-                                                                <i class="bi bi-linkedin"></i></span></a>
+                                                                <i class="bi bi-linkedin"
+                                                                    style="display: flex; align-items: center; justify-content: center; height: 100%;"></i></span></a>
                                                     </li>
                                                 @endif
 

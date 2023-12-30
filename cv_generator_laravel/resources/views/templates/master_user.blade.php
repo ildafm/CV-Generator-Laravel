@@ -44,7 +44,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 {{-- <img src="{{ asset('user_page_template/img/logo.png') }}" alt=""> --}}
-                <span class="d-none d-lg-block">User Page</span>
+                <span class="d-none d-lg-block">Main Page</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -246,7 +246,7 @@
                 </li><!-- End My Page Page Nav -->
 
                 <li class="nav-item">
-                    <a class="nav-link {{ $active_page == 'skills' ? '' : 'collapsed' }}" href="#">
+                    <a class="nav-link {{ $active_page == 'skills' ? '' : 'collapsed' }}" href="/skills">
                         <i class="bi bi-hand-thumbs-up"></i>
                         <span>My Skill</span>
                     </a>

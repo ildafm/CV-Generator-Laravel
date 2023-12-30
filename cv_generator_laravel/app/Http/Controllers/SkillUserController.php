@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailUser;
-use App\Models\ServiceUser;
+use App\Models\SkillUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class ServiceUserController extends Controller
+class SkillUserController extends Controller
 {
-    private $titlePage, $activePage;
+    private $activePage, $titlePage;
 
     public function __construct()
     {
-        $this->titlePage = 'Services';
-        $this->activePage = 'services';
+        $this->activePage = 'skills';
+        $this->titlePage = 'My Skill';
     }
     /**
      * Display a listing of the resource.
@@ -25,13 +25,12 @@ class ServiceUserController extends Controller
     public function index()
     {
         //
-        $detailUsers = DetailUser::where('user_id', Auth::user()->id)->first();
-        $services = ServiceUser::where('detail_user_id', $detailUsers->id)->get();
+        $skillUser = SkillUser::where('detail_user_id', Auth::user()->id)->get();
 
-        return view('services.index')
-            ->with('title_page', $this->titlePage)
+        return view('skills.index')
+            ->with('skillUser', $skillUser)
             ->with('active_page', $this->activePage)
-            ->with('services', $services);
+            ->with('title_page', $this->titlePage);
     }
 
     /**
@@ -42,14 +41,15 @@ class ServiceUserController extends Controller
     public function create()
     {
         //
+        //
         $detailUsers = DetailUser::where('user_id', Auth::user()->id)->first();
-        $services = ServiceUser::where('detail_user_id', $detailUsers->id)->get();
+        $skills = SkillUser::where('detail_user_id', $detailUsers->id)->get();
 
-        if (count($services) >= 6) {
-            session()->flash('pesan_warning', 'Sorry but you are only allowed to create 6 data services at the moment.');
+        if (count($skills) >= 4) {
+            session()->flash('pesan_warning', 'Sorry but you are only allowed to create 4 data skills at the moment.');
             return redirect()->back();
         }
-        return view('services.create')
+        return view('skills.create')
             ->with('active_page', $this->activePage)
             ->with('title_page', $this->titlePage);
     }
@@ -63,23 +63,23 @@ class ServiceUserController extends Controller
     public function store(Request $request)
     {
         //
-
+        // dd($request);
         try {
             $validateData = $request->validate([
-                'service_name' => 'required|string|max:50',
-                'service_detail' => 'required|string|max:200',
+                'skill_name' => 'required|string|max:20',
+                'skill_confident' => 'required|numeric|between:1,100',
             ]);
 
             $detailUsers = DetailUser::where('user_id', Auth::user()->id)->first();
 
-            $newService = new ServiceUser();
-            $newService->detail_user_id = $detailUsers->id;
-            $newService->service_name = $validateData['service_name'];
-            $newService->service_detail = $validateData['service_detail'];
+            $newSkill = new SkillUser();
+            $newSkill->detail_user_id = $detailUsers->id;
+            $newSkill->skill_name = $validateData['skill_name'];
+            $newSkill->skill_confident = $validateData['skill_confident'];
 
-            $newService->save();
+            $newSkill->save();
             session()->flash('pesan_success', 'Your data has been successfully added.');
-            return redirect()->route('services.index');
+            return redirect()->route('skills.index');
         }
         // Jika terjadi kesalahan validasi, tambahkan pesan error
         catch (ValidationException $e) {
@@ -91,10 +91,10 @@ class ServiceUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ServiceUser  $serviceUser
+     * @param  \App\Models\SkillUser  $skillUser
      * @return \Illuminate\Http\Response
      */
-    public function show(ServiceUser $serviceUser)
+    public function show(SkillUser $skillUser)
     {
         //
         session()->flash('pesan_warning', 'What are you trying to do?');
@@ -104,24 +104,25 @@ class ServiceUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ServiceUser  $serviceUser
+     * @param  \App\Models\SkillUser  $skillUser
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
-        $serviceUser = ServiceUser::findOrFail($id);
-        return view('services.edit')
+        $skillUser = SkillUser::findOrFail($id);
+
+        return view('skills.edit')
             ->with('title_page', $this->titlePage)
             ->with('active_page', $this->activePage)
-            ->with('serviceUser', $serviceUser);
+            ->with('skillUser', $skillUser);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ServiceUser  $serviceUser
+     * @param  \App\Models\SkillUser  $skillUser
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -129,19 +130,19 @@ class ServiceUserController extends Controller
         //
         try {
             $validateData = $request->validate([
-                'service_name' => 'required|string|max:50',
-                'service_detail' => 'required|string|max:200',
+                'skill_name' => 'required|string|max:20',
+                'skill_confident' => 'required|numeric|between:1,100',
             ]);
 
-            $serviceUser = ServiceUser::findOrFail($id);
+            $skillUser = SkillUser::findOrFail($id);
 
-            $serviceUser->update([
-                'service_name' => $validateData['service_name'],
-                'service_detail' => $validateData['service_detail'],
+            $skillUser->update([
+                'skill_name' => $validateData['skill_name'],
+                'skill_confident' => $validateData['skill_confident'],
             ]);
 
             session()->flash('pesan_success', 'Your data has been successfully edited.');
-            return redirect()->route('services.index');
+            return redirect()->route('skills.index');
         }
         // Jika terjadi kesalahan validasi, tambahkan pesan error
         catch (ValidationException $e) {
@@ -153,17 +154,16 @@ class ServiceUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ServiceUser  $serviceUser
+     * @param  \App\Models\SkillUser  $skillUser
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        // dd($serviceUser);
-        $serviceUser = ServiceUser::findOrFail($id);
+        $skillUser = SkillUser::findOrFail($id);
 
-        if ($serviceUser) {
-            $serviceUser->delete(); // Soft delete
+        if ($skillUser) {
+            $skillUser->delete(); // Soft delete
             session()->flash('pesan_success', 'Your data has been successfully deleted');
             return redirect()->back();
         } else {
