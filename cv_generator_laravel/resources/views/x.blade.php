@@ -77,8 +77,7 @@
                                             <div class="input-group has-validation">
                                                 <input type="email" name="email"
                                                     class="form-control @error('email') is-invalid @enderror"
-                                                    value="{{ old('email') }}" id="yourEmail" required
-                                                    placeholder="Masukan Email">
+                                                    id="yourEmail" required placeholder="Masukan Email">
 
                                                 <div class="invalid-feedback" id="emailEmptyError"
                                                     style="display: none;">The email field cannot be empty.

@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ServiceUserController;
 use App\Http\Controllers\SkillUserController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/x', function () {
+    return view('x');
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -33,6 +37,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('projects', ProjectUserController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('user_profile');
+
+    Route::get('/open_app', function () {
+        return redirect()->route('user_profile', ['user' => Auth::user()->id]);
+    });
 });
 
 Route::get('portfolios/{id_detail_user}/{name_user}', [PortfolioController::class, "portfolio"])->name('portfolio_show');
