@@ -7,6 +7,7 @@ use App\Models\PortfolioUser;
 use App\Models\ServiceUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -82,7 +83,82 @@ class UserController extends Controller
         //
         if ($request->name && $request->about_me) {
             // jika sudah membuat halaman portofolio
-            echo "advance edit";
+            try {
+                $validateData = $request->validate([
+                    'name' => 'string|required|max:255',
+                    'phone' => 'required|numeric|digits_between:12,20',
+                    'about_me' => 'required|max:800|string',
+                    'address' => 'required|max:255|string',
+                    'role' => 'required|max:255|string',
+                    // 'abilities_1' => 'required|max:100|string',
+                    // 'abilities_2' => 'max:100|string',
+                    // 'abilities_3' => 'max:100|string',
+                    'instagram_url' => 'max:255|string|regex:/https:\/\/www\.instagram\.com\//',
+                    'facebook_url' => 'max:255|string|regex:/https:\/\/www\.facebook\.com\//',
+                    'twitter_url' => 'max:255|string|regex:/https:\/\/www\.x\.com\//|regex:/https:\/\/www\.twitter\.com\//',
+                    'linkedin_url' => 'max:255|string|regex:/https:\/\/www\.linkedin\.com\/in\//',
+                ], [
+                    'instagram_url.regex' => 'The :attribute must contain the phrase "https://www.instagram.com/".',
+                    'facebook_url.regex' => 'The :attribute must contain the phrase "https://www.facebook.com/".',
+                    'twitter_url.regex' => 'The :attribute must contain the phrase "https://www.x.com/" or "https://www.twitter.com/".',
+                    'linkedin_url.regex' => 'The :attribute must contain the phrase "https://www.linkedin.com/in/".',
+                ]);
+
+                // $abilities = $validateData['abilities_1'];
+
+                // if (isset($validateData['abilities_2'])) {
+                //     $abilities .= '&&' . $validateData['abilities_2'];
+                // }
+
+                // if (isset($validateData['abilities_3'])) {
+                //     $abilities .= '&&' . $validateData['abilities_3'];
+                // }
+
+                $detail_user = DetailUser::where('user_id', $user->id);
+
+                $user->update([
+                    'name' => $validateData['name'],
+                    // 'abilitiies' => $abilities,
+                ]);
+
+                $detail_user->update([
+                    'phone' => $validateData['phone'],
+                    'about_me' => $validateData['about_me'],
+                    'address' => $validateData['address'],
+                    'role' => $validateData['role'],
+                    // 'abilitiies' => $abilities,
+                ]);
+
+                if (isset($validateData['instagram_url'])) {
+                    $detail_user->update([
+                        'instagram_url' => $validateData['instagram_url'],
+                    ]);
+                }
+
+                if (isset($validateData['facebook_url'])) {
+                    $detail_user->update([
+                        'facebook_url' => $validateData['facebook_url'],
+                    ]);
+                }
+                if (isset($validateData['twitter_url'])) {
+                    $detail_user->update([
+                        'twitter_url' => $validateData['twitter_url'],
+                    ]);
+                }
+                if (isset($validateData['linkedin_url'])) {
+                    $detail_user->update([
+                        'linkedin_url' => $validateData['linkedin_url'],
+                    ]);
+                }
+
+                $request->session()->flash('pesan_success', 'Your datas has been successfully changed');
+                return redirect()->back();
+            }
+            // Jika terjadi kesalahan validasi, tambahkan pesan error
+            catch (ValidationException $e) {
+                $request->session()->flash('pesan_error', 'Something is wrong, please try again');
+                return redirect()->back()->withInput()->withErrors($e->validator->errors());
+            }
         } else if ($request->name) {
             try {
                 $validateData = $request->validate([
@@ -93,7 +169,7 @@ class UserController extends Controller
                     'name' => $validateData['name'],
                 ]);
 
-                $request->session()->flash('pesan_success', 'Your data has been successfully changed');
+                $request->session()->flash('pesan_success', 'Your data name has been successfully changed');
                 return redirect()->back();
             }
             // Jika terjadi kesalahan validasi, tambahkan pesan error

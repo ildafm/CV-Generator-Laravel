@@ -113,6 +113,7 @@ class PortfolioController extends Controller
             $portfolio->abilities = $abilities;
             $portfolio->about_me = $validateData['about_me'];
             $portfolio->phone = $validateData['phone'];
+
             if (isset($validateData['instagram_url'])) {
                 $portfolio->instagram_url = $validateData['instagram_url'];
             }

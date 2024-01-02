@@ -208,18 +208,99 @@
                                             <label for="about_me" class="col-md-4 col-lg-3 col-form-label">About
                                                 Me</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <textarea name="about_me" class="form-control" id="about_me" style="height: 100px"
-                                                    placeholder="Insert about yourself, max:1000 characters">{{ old('about_me', $detail_user->about_me) }}</textarea>
+                                                <textarea name="about_me" class="form-control @error('about_me') is-invalid @enderror" id="about_me"
+                                                    style="height: 100px" placeholder="Insert about yourself, max:1000 characters">{{ old('about_me', $detail_user->about_me) }}</textarea>
                                             </div>
+                                            @error('about_me')
+                                                <div class="text-danger small">{{ $message }}</div>
+                                            @enderror
                                         </div>
+
+                                        {{-- role --}}
+                                        <div class="row mb-3">
+                                            <label for="role" class="col-md-4 col-lg-3 col-form-label">Your
+                                                Role</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text"
+                                                    class="form-control @error('role') is-invalid @enderror"
+                                                    name="role" required maxlength="255"
+                                                    placeholder="ex: Full Stack Developer"
+                                                    value="{{ old('role', $detail_user->role) }}">
+                                            </div>
+                                            @error('role')
+                                                <div class="text-danger small">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- abilities --}}
+                                        <div class="row mb-3">
+                                            <label for="abilities" class="col-md-4 col-lg-3 col-form-label">Abilities,
+                                                max:3</label>
+
+                                            {{-- abilitites --}}
+                                            <div class="col-md-8 col-lg-9">
+                                                {{-- abilities_1 --}}
+                                                <input type="text"
+                                                    class="form-control mb-2 @error('abilities_1') is-invalid @enderror"
+                                                    name="abilities_1" maxlength="100"
+                                                    placeholder="ex: Developer or Web Developer"
+                                                    value="{{ old('abilities_1') }}" required disabled>
+                                                @error('abilities_1')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
+
+                                                {{-- abilities_2 --}}
+                                                <div class="input-group mb-2">
+                                                    <span class="input-group-text">
+                                                        <input type="checkbox" id="check_abilities_2"
+                                                            onload="abilities2Manage();" onchange="abilitites2Manage();"
+                                                            @if (old('abilities_2')) checked @endif>
+                                                    </span>
+                                                    <input name="abilities_2" id="input_abilities_2"
+                                                        @if (!old('abilities_2')) disabled @endif type="text"
+                                                        class="form-control @error('abilities_2') is-invalid @enderror"
+                                                        maxlength="100" value="{{ old('abilities_2') }}"
+                                                        placeholder="More Abilities (optional) ">
+                                                </div>
+                                                @error('abilities_2')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
+
+                                                {{-- abilities_3 --}}
+                                                <div class="input-group" id="abt3"
+                                                    @if (!old('abilities_2')) hidden @endif>
+                                                    <span class="input-group-text">
+                                                        <input type="checkbox" id="check_abilities_3"
+                                                            name="check_abilities_3" onchange="abilitites3Manage();"
+                                                            @if (old('abilities_3')) checked @endif>
+                                                    </span>
+                                                    <input name="abilities_3" id="input_abilities_3"
+                                                        @if (!old('abilities_3')) disabled @endif type="text"
+                                                        value="{{ old('abilities_3') }}"
+                                                        class="form-control @error('abilities_3') is-invalid @enderror"
+                                                        maxlength="100" placeholder="More Abilities (optional)">
+                                                </div>
+                                                @error('abilities_3')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
+
+
+                                            </div>
+
+                                        </div>
+                                        {{-- end abilitites --}}
 
                                         {{-- address --}}
                                         <div class="row mb-3">
                                             <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="address" type="text" class="form-control" id="address"
-                                                    value="{{ old('address', $detail_user->address) }}"
+                                                <input name="address" type="text"
+                                                    class="form-control @error('address') is-invalid @enderror"
+                                                    id="address" value="{{ old('address', $detail_user->address) }}"
                                                     placeholder="Insert your full address, max:700 characters">
+                                                @error('address')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -228,22 +309,42 @@
                                             <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone
                                                 Number</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="phone" type="number" class="form-control" id="Phone"
-                                                    value="{{ old('phone', $detail_user->phone) }}"
+                                                <input name="phone" type="number"
+                                                    class="form-control @error('phone') is-invalid @enderror"
+                                                    id="Phone" value="{{ old('phone', $detail_user->phone) }}"
                                                     oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                                     type = "number" maxlength="20"
                                                     placeholder="081... Your phone number must be active whatsapp">
+                                                @error('phone')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
+
                                         {{-- instagram profile --}}
                                         <div class="row mb-3">
                                             <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="instagram" type="text" class="form-control"
-                                                    id="Instagram"
-                                                    value="{{ old('instagram', $detail_user->instagram_url) }}"
-                                                    placeholder="https://instagram.com/#">
+                                                <div class="input-group mb-2">
+                                                    {{-- checkbox instagram --}}
+                                                    <span class="input-group-text">
+                                                        <input type="checkbox" id="cb_instagram"
+                                                            onchange="instagramUrlManage();"
+                                                            @if (old('instagram_url', $detail_user->instagram_url)) checked @endif>
+                                                    </span>
+
+                                                    {{-- input text instagram --}}
+                                                    <input name="instagram_url" type="text" id="input_instagram_url"
+                                                        @if (!old('instagram_url', $detail_user->instagram_url)) disabled @endif
+                                                        class="form-control @error('instagram_url') is-invalid @enderror"
+                                                        maxlength="255"
+                                                        value="{{ old('instagram_url', $detail_user->instagram_url) }}"
+                                                        placeholder="https://www.instagram.com/#">
+                                                    @error('instagram_url')
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
@@ -252,10 +353,25 @@
                                             <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="facebook" type="text" class="form-control"
-                                                    id="Facebook"
-                                                    value="{{ old('facebook', $detail_user->facebook_url) }}"
-                                                    placeholder="https://facebook.com/#">
+                                                <div class="input-group mb-2">
+                                                    {{-- checkbox facebook url --}}
+                                                    <span class="input-group-text">
+                                                        <input type="checkbox" id="cb_facebook"
+                                                            onchange="facebookUrlManage();"
+                                                            @if (old('facebook_url', $detail_user->facebook_url)) checked @endif>
+                                                    </span>
+
+                                                    {{-- input text facebook url --}}
+                                                    <input name="facebook_url" type="text" id="input_facebook_url"
+                                                        @if (!old('facebook_url', $detail_user->facebook_url)) disabled @endif
+                                                        class="form-control @error('facebook_url') is-invalid @enderror"
+                                                        maxlength="255"
+                                                        value="{{ old('facebook_url', $detail_user->facebook_url) }}"
+                                                        placeholder="https://www.facebook.com/#">
+                                                    @error('facebook_url')
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
@@ -265,9 +381,24 @@
                                             <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="twitter" type="text" class="form-control" id="Twitter"
-                                                    value="{{ old('twitter', $detail_user->twitter_url) }}"
-                                                    placeholder="https://www.twitter.com/# OR https://www.x.com/#">
+                                                <div class="input-group mb-2">
+                                                    {{-- chechbox twitter --}}
+                                                    <span class="input-group-text">
+                                                        <input type="checkbox" id="cb_twitter"
+                                                            onchange="twitterUrlManage();"
+                                                            @if (old('twitter_url', $detail_user->twitter_url)) checked @endif>
+                                                    </span>
+                                                    {{-- input twitter --}}
+                                                    <input name="twitter_url" type="text" id="input_twitter_url"
+                                                        @if (!old('twitter_url', $detail_user->twitter_url)) disabled @endif
+                                                        class="form-control @error('twitter_url') is-invalid @enderror"
+                                                        maxlength="255"
+                                                        value="{{ old('twitter_url', $detail_user->twitter_url) }}"
+                                                        placeholder="https://www.twitter.com/# OR https://www.x.com/#">
+                                                    @error('twitter_url')
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
@@ -276,10 +407,24 @@
                                             <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
                                                 Profile</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="linkedin" type="text" class="form-control"
-                                                    id="Linkedin"
-                                                    value="{{ old('linkedin', $detail_user->linked_in_url) }}"
-                                                    placeholder="https://www.linkedin.com/in/#">
+                                                <div class="input-group mb-2">
+                                                    {{-- checkbox linkedin --}}
+                                                    <span class="input-group-text">
+                                                        <input type="checkbox" id="cb_linkedin"
+                                                            onchange="linkedinUrlManage();"
+                                                            @if (old('linkedin_url', $detail_user->linked_in_url)) checked @endif>
+                                                    </span>
+                                                    {{-- input linkedin --}}
+                                                    <input name="linkedin_url" type="text" id="input_linkedin_url"
+                                                        @if (!old('linkedin_url', $detail_user->linked_in_url)) disabled @endif
+                                                        class="form-control @error('linkedin_url') is-invalid @enderror"
+                                                        maxlength="255"
+                                                        value="{{ old('linkedin_url', $detail_user->linked_in_url) }}"
+                                                        placeholder="https://www.linkedin.com/in/#">
+                                                    @error('linkedin_url')
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     @endif
@@ -339,4 +484,114 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function abilitites2Manage() {
+            var checkbox = document.getElementById('check_abilities_2');
+            var abilitiesInput = document.getElementById('input_abilities_2');
+
+            var checkboxAbilities3 = document.getElementById('check_abilities_3')
+            var abilities3 = document.getElementById('abt3');
+
+            checkboxAbilities3.checked = false;
+            abilitites3Manage();
+            if (checkbox.checked) {
+                // alert("checked");
+                abilitiesInput.required = true
+                abilitiesInput.disabled = false; // Mengaktifkan input text
+                abilities3.hidden = false;
+            } else {
+                // alert("unchecked");
+                abilitiesInput.value = "";
+                abilitiesInput.required = false
+                abilitiesInput.disabled = true; // Menonaktifkan input text
+                abilities3.hidden = true;
+            }
+        }
+
+        function abilitites3Manage() {
+            var checkbox = document.getElementById('check_abilities_3');
+            var abilitiesInput = document.getElementById('input_abilities_3');
+
+            if (checkbox.checked) {
+                // alert("checked");
+                abilitiesInput.required = true
+                abilitiesInput.disabled = false; // Mengaktifkan input text
+            } else {
+                // alert("unchecked");
+                abilitiesInput.value = "";
+                abilitiesInput.required = false
+                abilitiesInput.disabled = true; // Menonaktifkan input text
+
+            }
+        }
+
+        function instagramUrlManage() {
+            var checkbox = document.getElementById('cb_instagram');
+            var input = document.getElementById('input_instagram_url');
+
+            if (checkbox.checked) {
+                // alert("checked");
+                input.required = true
+                input.disabled = false; // Mengaktifkan input text
+            } else {
+                // alert("unchecked");
+                input.value = "";
+                input.required = false
+                input.disabled = true; // Menonaktifkan input text
+
+            }
+        }
+
+        function facebookUrlManage() {
+            var checkbox = document.getElementById('cb_facebook');
+            var input = document.getElementById('input_facebook_url');
+
+            if (checkbox.checked) {
+                // alert("checked");
+                input.required = true
+                input.disabled = false; // Mengaktifkan input text
+            } else {
+                // alert("unchecked");
+                input.value = "";
+                input.required = false
+                input.disabled = true; // Menonaktifkan input text
+
+            }
+        }
+
+        function twitterUrlManage() {
+            var checkbox = document.getElementById('cb_twitter');
+            var input = document.getElementById('input_twitter_url');
+
+            if (checkbox.checked) {
+                // alert("checked");
+                input.required = true
+                input.disabled = false; // Mengaktifkan input text
+            } else {
+                // alert("unchecked");
+                input.value = "";
+                input.required = false
+                input.disabled = true; // Menonaktifkan input text
+
+            }
+        }
+
+        function linkedinUrlManage() {
+            var checkbox = document.getElementById('cb_linkedin');
+            var input = document.getElementById('input_linkedin_url');
+
+            if (checkbox.checked) {
+                // alert("checked");
+                input.required = true
+                input.disabled = false; // Mengaktifkan input text
+            } else {
+                // alert("unchecked");
+                input.value = "";
+                input.required = false
+                input.disabled = true; // Menonaktifkan input text
+
+            }
+        }
+    </script>
 @endsection
