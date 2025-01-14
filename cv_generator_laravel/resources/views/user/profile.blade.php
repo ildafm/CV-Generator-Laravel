@@ -17,7 +17,6 @@
             <div class="col-xl-4">
 
                 <div class="card">
-
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                         <img src="{{ asset('user_page_template/img/profile-img.jpg') }}" alt="Profile"

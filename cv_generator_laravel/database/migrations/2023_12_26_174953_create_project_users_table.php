@@ -16,7 +16,7 @@ class CreateProjectUsersTable extends Migration
     {
         Schema::create('project_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('detail_user_id'); // Kolom untuk relasi ke tabel users
+            $table->unsignedBigInteger('detail_user_id'); // Kolom untuk relasi ke tabel detail users
             $table->foreign('detail_user_id')->references('id')->on('detail_users')->onDelete('cascade');
             $table->string('image_path')->nullable();
             $table->string('project_name', 100);

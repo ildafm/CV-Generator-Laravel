@@ -5,6 +5,7 @@ use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ServiceUserController;
 use App\Http\Controllers\SkillUserController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SuperDetailServiceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('services', ServiceUserController::class);
     Route::resource('projects', ProjectUserController::class);
     Route::resource('portfolios', PortfolioController::class);
+    Route::get('detail_services/create/{service_id}', [SuperDetailServiceController::class, 'create'])->name('detail_services_create');
     Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('user_profile');
 
     Route::get('/open_app', function () {

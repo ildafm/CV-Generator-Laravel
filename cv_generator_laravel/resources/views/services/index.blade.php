@@ -55,6 +55,10 @@
                                         <td>{{ $item->service_detail }}</td>
                                         <td>
                                             {{-- btn-edit --}}
+                                            <a href="{{ route('detail_services_create', ['service_id' => $item->id]) }}"
+                                                class="btn btn-sm btn-primary" title="Advance data">Advance</a>
+
+                                            {{-- btn-edit --}}
                                             <a href="{{ route('services.edit', ['service' => $item->id]) }}"
                                                 class="btn btn-sm btn-warning" title="Wanna edit this service?">Edit</a>
 

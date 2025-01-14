@@ -23,7 +23,14 @@ class CreateDetailUsersTable extends Migration
             $table->string('abilities', 500);
             $table->string('address');
             $table->string('about_me', 1000);
+
+            $table->string('gender', 1);
+            $table->string('marital_status', 1);
+            $table->string('city_birth');
+            $table->string('religion');
+            $table->date('date_birth');
             $table->string('phone', 20);
+
             $table->string('linked_in_url')->nullable();
             $table->string('instagram_url')->nullable();
             $table->string('facebook_url')->nullable();

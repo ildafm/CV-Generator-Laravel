@@ -16,7 +16,7 @@ class CreateSkillUsersTable extends Migration
     {
         Schema::create('skill_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('detail_user_id'); // Kolom untuk relasi ke tabel users
+            $table->unsignedBigInteger('detail_user_id'); // Kolom untuk relasi ke tabel detail users
             $table->foreign('detail_user_id')->references('id')->on('detail_users')->onDelete('cascade');
 
             $table->string('skill_name', 20);
